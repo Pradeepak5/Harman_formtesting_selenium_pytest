@@ -1,7 +1,6 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-from selenium.webdriver.common.keys import Keys
 import pytest
 
 @pytest.fixture
@@ -11,12 +10,13 @@ def setUp():
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.maximize_window()
     yield
-    time.sleep(15)
+    time.sleep(5)
     driver.close()
     print("Tested Successfully")
 
 def test_form(setUp):
     driver.get("https://iprimedtraining.herokuapp.com/")
+    time.sleep(1)
     driver.find_element_by_name("name").send_keys(name)
     time.sleep(2)
     driver.find_element_by_xpath("/html/body/div/div/div[2]/form/table/tbody/tr[2]/td[2]/input[1]").click()
@@ -27,5 +27,3 @@ def test_form(setUp):
     time.sleep(1)
     driver.find_element_by_name("subbtn").click()
     time.sleep(5)
-    driver.close()
-    print("Tested Successfully")
